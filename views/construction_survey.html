@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>건설 및 인프라 평가항목</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-image: url('/static/images/1.jpg'); /* 배경 이미지 경로 */
+            background-size: cover;  /* 이미지가 화면에 맞도록 확장 */
+            background-repeat: no-repeat;  /* 이미지 반복 안 함 */
+            background-position: center;  /* 중앙에 배치 */
+            height: 100vh; /* 전체 화면 높이로 설정 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); /* 약간 투명한 흰색 배경 */
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .question {
+            margin: 15px 0;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .choices {
+            margin-left: 20px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>건설 및 인프라 평가항목</h1>
+        <form action="/submit" method="POST">
+            <!-- 숨겨진 input으로 industry 값을 전달 -->
+            <input type="hidden" name="industry" value="construction">
+            
+            <!-- 건설 및 인프라에 특화된 Yes/No 질문 -->
+            <div class="question">
+                <label>질문 1: 귀사는 건설 프로젝트에서 친환경 자재를 사용하는 것을 고려하고 있습니까?</label>
+                <div class="choices">
+                    <label><input type="radio" name="question1" value="yes" required> Yes</label>
+                    <label><input type="radio" name="question1" value="no"> No</label>
+                </div>
+            </div>
+
+            <div class="question">
+                <label>질문 2: 귀사는 에너지 절약을 위한 설계 및 건설 방법을 도입하고 있습니까?</label>
+                <div class="choices">
+                    <label><input type="radio" name="question2" value="yes" required> Yes</label>
+                    <label><input type="radio" name="question2" value="no"> No</label>
+                </div>
+            </div>
+
+            <div class="question">
+                <label>질문 3: 귀사는 건설 현장에서 발생하는 폐기물에 대해 별도의 관리 및 처리 방안을 시행하고 있습니까?</label>
+                <div class="choices">
+                    <label><input type="radio" name="question3" value="yes" required> Yes</label>
+                    <label><input type="radio" name="question3" value="no"> No</label>
+                </div>
+            </div>
+
+            <div class="question">
+                <label>질문 4: 귀사는 현장 작업 중 발생하는 오염을 줄이기 위한 기술을 사용하고 있습니까?</label>
+                <div class="choices">
+                    <label><input type="radio" name="question4" value="yes" required> Yes</label>
+                    <label><input type="radio" name="question4" value="no"> No</label>
+                </div>
+            </div>
+
+            <div class="question">
+                <label>질문 5: 귀사는 지역 사회와 환경에 미치는 영향을 최소화하기 위해 노력하고 있습니까?</label>
+                <div class="choices">
+                    <label><input type="radio" name="question5" value="yes" required> Yes</label>
+                    <label><input type="radio" name="question5" value="no"> No</label>
+                </div>
+            </div>
+
+            <button type="submit">제출</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
+
+

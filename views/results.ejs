@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG평가 결과</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-image: url('/static/images/1.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .chart-container {
+            margin-top: 40px;
+        }
+        .result-box {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .bold-text {
+            font-size: 48px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>ESG 평가 결과</h1>
+
+    <!-- ESG 등급 표시 영역 -->
+    <div class="result-box">
+        <p>귀사의 ESG 등급은</p>
+        <p class="bold-text">3등급</p>
+        <p>입니다</p>
+    </div>
+
+    <!-- 파이 차트 영역 -->
+    <div class="chart-container">
+        <canvas id="overallChart"></canvas>
+    </div>
+
+    <a href="/">다시 설문조사 하기</a>
+</div>
+
+<!-- Chart.js 및 스크립트 로드 -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- JSON 데이터와 차트 생성 스크립트 -->
+<script>
+    // 서버에서 전달된 JSON 데이터를 자바스크립트 객체로 파싱
+    const resultData = JSON.parse('<%= JSON.stringify(result) %>');
+
+    // 응답 결과 합산
+    let totalYes = 0;
+    let totalNo = 0;
+    for (let i = 1; i <= 5; i++) {
+        totalYes += resultData[`question${i}_yes`] || 0;
+        totalNo += resultData[`question${i}_no`] || 0;
+    }
+
+    // 차트 생성
+    document.addEventListener('DOMContentLoaded', function () {
+        const ctx = document.getElementById('overallChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Yes', 'No'],
+                datasets: [{
+                    data: [totalYes, totalNo],
+                    backgroundColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
+
+
+
+
+

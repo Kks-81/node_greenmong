@@ -12,6 +12,8 @@ const { fetchEnvironmentIssues } = require('./search'); // 정확한 함수 가�
 // 정적 파일 제공 설정 (public 폴더 내의 파일 접근 가능)
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/videos', express.static(path.join(__dirname, 'public/videos')));
+
 // EJS 템플릿 엔진 설정
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));

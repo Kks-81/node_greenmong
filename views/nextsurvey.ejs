@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>평가항목</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+         body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-image: url('/static/images/1.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px; /* 화면 양쪽에 공백 추가 */
+        }
+        .container {
+            position: relative;
+            background-color: #ffffff;
+            padding: 30px 100px 30px 100px; /* 상단 여백을 줄임 */
+            margin: 20px auto; /* 중앙 정렬 및 상단 여백 */
+            width: 80%;
+            max-width: 700px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+            max-height: 90vh;
+            opacity: 0.95; /* 약간의 투명도 추가 */
+        }
+        .header-container {
+            background-color: #d9fdd3; /* 연초록색 */
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .header-container h1 {
+            font-size: 24px;
+            color: #333;
+            margin: 0;
+        }
+        .super-category-title {
+    color: #FF6347; /* 진한 청록색 */
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: left;
+    border-left: 6px solid #FF6347; /* 왼쪽 선 강조 */
+    padding-left: 12px;
+}
+        .category-title {
+            color: #1b5e20; /* 진한 초록색 */
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            text-align: left;
+            border-left: 4px solid #1b5e20; /* 왼쪽 선 강조 */
+            padding-left: 10px;
+        }
+        .question-container {
+            background-color: #fffde7; /* 더 연한 노란색 */
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .question-container:last-child {
+            margin-bottom: 0;
+        }
+        .question p {
+            font-size: 18px;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 15px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background-color: #fffef2; /* 더 연한 노란색 */
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .option:hover {
+            background-color: #fef9e7; /* 호버 시 조금 더 진한 연노란색 */
+        }
+        .option input {
+            transform: scale(1.2);
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+        
+        /* 계산기 아이콘 컨테이너 스타일 */
+        .calculator-container {
+    position: absolute; /* 컨테이너 내부에서 절대 위치 */
+    top: 120px; /* 컨테이너의 상단 여백 */
+    right: 20px; /* 컨테이너의 우측 여백 */
+    background-color: #FF6347; /* 토마토색 (붉은 계열) */
+    color: #fff; /* 흰색 아이콘 */
+    border-radius: 50%;
+    width: 90px; /* 버튼 너비 증가 */
+    height: 90px; /* 버튼 높이 증가 */
+    display: flex;
+    flex-direction: column; /* 아이콘과 텍스트를 세로로 정렬 */
+    align-items: center; /* 가로 중앙 정렬 */
+    justify-content: center; /* 세로 중앙 정렬 */
+    gap: 5px; /* 아이콘과 텍스트 사이 간격 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    z-index: 10; /* 다른 요소 위에 표시되도록 설정 */
+}
+
+.calculator-container:hover {
+    background-color: #DC143C; /* 진한 빨강색 (크림슨) */
+    transform: scale(1.1); /* 호버 시 확대 효과 */
+}
+
+.calculator-container i {
+    font-size: 30px; /* 아이콘 크기 증가 */
+}
+
+.calculator-container span {
+    font-size: 11px; /* 텍스트 크기 */
+    font-weight: bold; /* 텍스트 굵게 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.canvas {
+    display: block;
+    margin: 0 auto;
+    background-color: white;
+}
+    </style>
+</head>
+<body>
+    
+
+    <div class="container">
+        <div class="calculator-container" onclick="location.href='/cal';" title="온실가스 계산기">
+            <i class="fas fa-calculator"></i>
+            <span>온실가스 계산기</span>
+        </div>
+
+        <!-- 제목 컨테이너 -->
+        <div class="header-container">
+            <h1>평가항목</h1>
+        </div>
+
+        <!-- 설문 폼 -->
+        <form action="/submit" method="POST">
+            <input type="hidden" name="subcategory" value="<%= subcategory %>">
+
+            <!-- 대대분류 환경경영체계 -->
+            <div class="super-category-title">환경 성과</div>
+
+            <!-- 대분류 E04 -->
+            <div class="category-title">E04 : 원부자재 사용량</div>
+            <% questions.slice(0, 2).forEach((questionItem, index) => { %>
+                <div class="question-container">
+                    <div class="question">
+                        <p><%= questionItem.question %></p>
+                    </div>
+                    <div class="options">
+                        <% questionItem.checklist.forEach((option, optionIndex) => { %>
+                            <label class="option">
+                                <input type="radio" name="question<%= index + 1 %>" value="<%= option %>" required>
+                                <span><%= option %></span>
+                            </label>
+                        <% }); %>
+                    </div>
+                </div>
+            <% }); %>
+
+           <!-- 대분류 E05: 온실가스 배출량 평가 -->
+<div class="category-title">E05: 온실가스 배출량 평가</div>
+
+<!-- 폼 시작 -->
+
+
+    <% questions.slice(2, 6).forEach((questionItem, index) => { %>
+        <div class="question-container" style="margin-bottom: 20px;">
+            <div class="question">
+                <p><%= questionItem.question %></p>
+            </div>
+
+            <!-- 입력 필드 공간 추가 -->
+            <div style="margin-bottom: 15px;">
+                <% if (index === 0) { %> <!-- E05-01, Scope 1만 입력 -->
+                    <label for="scope1_input_<%= index %>">Scope 1 배출량 (tCO2eq): </label>
+                    <input 
+                        type="number" 
+                        id="scope1_input" 
+                        name="scope1" 
+                        placeholder="배출량 입력 (tCO2eq)" 
+                        style="padding: 5px; border: 1px solid #ddd; border-radius: 4px; width: 100%;" 
+                        required>
+                        
+                <% } else if (index === 1) { %> <!-- E05-02, Scope 2만 입력 -->
+                    <label for="scope2_input_<%= index %>">Scope 2 배출량 (tCO2eq): </label>
+                    <input 
+                        type="number" 
+                        id="scope2_input" 
+                        name="scope2" 
+                        placeholder="배출량 입력 (tCO2eq)" 
+                        style="padding: 5px; border: 1px solid #ddd; border-radius: 4px; width: 100%;" 
+                        required>
+                        
+                <% } else if (index === 2) { %> <!-- E05-03, Scope 3만 입력 -->
+                    <label for="scope3_input_<%= index %>">Scope 3 배출량 (tCO2eq): </label>
+                    <input 
+                        type="number" 
+                        id="scope3_input" 
+                        name="scope3" 
+                        placeholder="배출량 입력 (tCO2eq)" 
+                        style="padding: 5px; border: 1px solid #ddd; border-radius: 4px; width: 100%;" 
+                        required>
+                        
+                <% } %>
+            </div>
+
+            <div class="options">
+                <% questionItem.checklist.forEach((option, optionIndex) => { %>
+                    <div class="option" style="margin-bottom: 10px;">
+                        <!-- 체크리스트 항목 -->
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input 
+                                type="radio" 
+                                name="question<%= index + 1 %>" 
+                                value="<%= option %>" 
+                                required>
+                            <span><%= option %></span>
+                        </label>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    <% }); %>
+
+<script>
+
+</script>
+            <!-- 대분류 E06 -->
+            <div class="category-title">E06: 에너지 사용량</div>
+            <% questions.slice(6,9).forEach((questionItem, index) => { %>
+                <div class="question-container">
+                    <div class="question">
+                        <p><%= questionItem.question %></p>
+                    </div>
+                    <div class="options">
+                        <% questionItem.checklist.forEach((option, optionIndex) => { %>
+                            <label class="option">
+                                <input type="radio" name="question<%= index + 1 %>" value="<%= option %>" required>
+                                <span><%= option %></span>
+                            </label>
+                        <% }); %>
+                    </div>
+                </div>
+            <% }); %>
+
+             <!-- 대분류 E07 -->
+             <div class="category-title">E07: 용수 사용량</div>
+             <% questions.slice(9,12).forEach((questionItem, index) => { %>
+                 <div class="question-container">
+                     <div class="question">
+                         <p><%= questionItem.question %></p>
+                     </div>
+                     <div class="options">
+                         <% questionItem.checklist.forEach((option, optionIndex) => { %>
+                             <label class="option">
+                                 <input type="radio" name="question<%= index + 1 %>" value="<%= option %>" required>
+                                 <span><%= option %></span>
+                             </label>
+                         <% }); %>
+                     </div>
+                 </div>
+             <% }); %>
+
+              <!-- 대분류 E08 -->
+<div class="category-title">E08: 폐기물 배출량</div>
+<% questions.slice(12,15).forEach((questionItem, index) => { %>
+    <div class="question-container">
+        <div class="question">
+            <p><%= questionItem.question %></p>
+        </div>
+        <div class="options">
+            <% questionItem.checklist.forEach((option, optionIndex) => { %>
+                <label class="option">
+                    <input type="radio" name="question<%= index + 1 %>" value="<%= option %>" required>
+                    <span><%= option %></span>
+                </label>
+            <% }); %>
+        </div>
+    </div>
+<% }); %>
+
+             <!-- 대분류 E09 -->
+             <div class="category-title">E09: 대기/수질 오염물질 배출량</div>
+             <% questions.slice(15,17).forEach((questionItem, index) => { %>
+                 <div class="question-container">
+                     <div class="question">
+                         <p><%= questionItem.question %></p>
+                     </div>
+                     <div class="options">
+                         <% questionItem.checklist.forEach((option, optionIndex) => { %>
+                             <label class="option">
+                                 <input type="radio" name="question<%= index + 1 %>" value="<%= option %>" required>
+                                 <span><%= option %></span>
+                             </label>
+                         <% }); %>
+                     </div>
+                 </div>
+             <% }); %>
+
+              <!-- 대분류 E10 -->
+            <div class="category-title">E010: 환경 시스템</div>
+            <% questions.slice(17,18).forEach((questionItem, index) => { %>
+                <div class="question-container">
+                    <div class="question">
+                        <p><%= questionItem.question %></p>
+                    </div>
+                    <div class="options">
+                        <% questionItem.checklist.forEach((option, optionIndex) => { %>
+                            <label class="option">
+                                <input type="radio" name="question<%= index + 1 %>" value="<%= option %>" required>
+                                <span><%= option %></span>
+                            </label>
+                        <% }); %>
+                    </div>
+                </div>
+            <% }); %>
+
+            <!-- 대대분류 환경경영체계 -->
+            <div class="super-category-title">공급망</div>
+
+             <!-- 대분류 E11 -->
+             <div class="category-title">E11: 공급망</div>
+             <% questions.slice(18,19).forEach((questionItem, index) => { %>
+                 <div class="question-container">
+                     <div class="question">
+                         <p><%= questionItem.question %></p>
+                     </div>
+                     <div class="options">
+                         <% questionItem.checklist.forEach((option, optionIndex) => { %>
+                             <label class="option">
+                                 <input type="radio" name="question<%= index + 1 %>" value="<%= option %>" required>
+                                 <span><%= option %></span>
+                             </label>
+                         <% }); %>
+                     </div>
+                 </div>
+             <% }); %>
+
+            <!-- 대대분류 환경경영체계 -->
+            <div class="super-category-title">친환경 서비스</div>
+
+              <!-- 대분류 E12 -->
+            <div class="category-title">E12: 친환경 서비스</div>
+            <% questions.slice(19,22).forEach((questionItem, index) => { %>
+                <div class="question-container">
+                    <div class="question">
+                        <p><%= questionItem.question %></p>
+                    </div>
+                    <div class="options">
+                        <% questionItem.checklist.forEach((option, optionIndex) => { %>
+                            <label class="option">
+                                <input type="radio" name="question<%= index + 1 %>" value="<%= option %>" required>
+                                <span><%= option %></span>
+                            </label>
+                        <% }); %>
+                    </div>
+                </div>
+            <% }); %>
+
+<!-- 제출 버튼 -->
+<div>
+    <button type="submit" class="submit-btn">제출</button>
+</div>
+
+
+</form>
+<script>
+    
+</script>
+</body>
+</html>
+
+
+
+        
+
+
+
+
+
+

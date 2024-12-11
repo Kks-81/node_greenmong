@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>온실가스 배출량 계산기</title>
+  <style>
+    body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    background-image: url('/static/images/1.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+}
+
+h1, h2, h3 {
+    color: #006400; /* 진한 초록색 */
+}
+
+h1 {
+    background-color: #f0e68c; /* 밝은 노란색 */
+    color: #006400; /* 진한 초록색 */
+    padding: 15px 30px; /* 텍스트 주위에 적절한 여백 */
+    border-radius: 10px;
+    display: inline-block; /* 글씨 크기에 맞춰 배경 크기 조정 */
+    font-size: 24px; /* 글씨 크기 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
+}
+
+p {
+    color: #4b5320; /* 어두운 올리브색 */
+}
+
+.container {
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.section {
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #fdf5e6; /* 아이보리 색 */
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #ffffff; /* 흰색 배경 */
+}
+
+table, th, td {
+    border: 1px solid #d3d3d3; /* 연한 회색 테두리 */
+}
+
+th {
+    background-color: #d2e56d; /* 연한 초록색 */
+    color: #4b5320; /* 어두운 초록색 */
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+}
+
+input[type="number"] {
+    width: 100%; /* 테이블 셀 크기에 맞춤 */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: center; /* 숫자 입력 필드를 가운데 정렬 */
+}
+
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #ffd700; /* 금색 */
+    color: #4b5320; /* 어두운 초록색 */
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ffa500; /* 진한 오렌지색 */
+    color: #fff; /* 흰색 글씨 */
+}
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+    font-size: 18px;
+    color: #1b5e20; /* 진한 초록색 */
+    margin-bottom: 10px;
+}
+
+.card table td {
+    padding: 8px;
+}
+
+.card input[type="text"] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.button {
+    background-color: #32CD32;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #228B22;
+}
+
+.total-container {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  .total-container h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+  }
+  .total-container p {
+    font-size: 16px;
+    color: #555;
+    font-weight: bold;
+  }
+
+@media (max-width: 768px) {
+    .grid-layout {
+        grid-template-columns: 1fr; /* 작은 화면에서는 단일 열 레이아웃 */
+    }
+}
+  </style>
+</head>
+<body>
+    <div class="container">
+        <h1>그린몽 온실가스 배출량 계산기</h1>
+        <p>(최근 12개월 기준으로 기입하십시오.)</p>
+    </div>
+  
+
+    <div class="section">
+        <h2>Scope 1 (직접 배출량)</h2>
+        <p>* 기업 조직 경계의 보일러, 난방, 발전기 등에서 연간 사용한 모든 연료를 모두 기입하여 주십시오.</p>
+        
+        <h3>[액체연료]</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>연료 종류</th>
+              <th>사용량 입력</th>
+              <th>총계 (tCO₂eq)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 기타등유 (실내) -->
+            <tr>
+              <td>기타등유 (실내) (단위:L)</td>
+              <td>
+                <input type="number" id="kerosene_indoor" placeholder="0" oninput="calculateFuel('kerosene_indoor', 34.3, 71900, 10, 0.6, 'kerosene_indoor_result')">
+              </td>
+              <td>
+                <div id="kerosene_indoor_result" class="result-scope1">0</div>
+              </td>
+            </tr>
+            <!-- 기타등유 (보일러) -->
+            <tr>
+              <td>기타등유 (보일러) (단위:L)</td>
+              <td>
+                <input type="number" id="kerosene_boiler" placeholder="0" oninput="calculateFuel('kerosene_boiler', 34.3, 71900, 10, 0.6, 'kerosene_boiler_result')">
+              </td>
+              <td>
+                <div id="kerosene_boiler_result" class="result-scope1">0</div>
+              </td>
+            </tr>
+            <!-- 경유 -->
+            <tr>
+              <td>경유 (단위:L)</td>
+              <td>
+                <input type="number" id="diesel" placeholder="0" oninput="calculateFuel('diesel', 35.3, 74100, 10, 0.6, 'diesel_result')">
+              </td>
+              <td>
+                <div id="diesel_result" class="result-scope1">0</div>
+              </td>
+            </tr>
+            <!-- B-A -->
+            <tr>
+              <td>B-A (단위:L)</td>
+              <td>
+                <input type="number" id="ba" placeholder="0" oninput="calculateFuel('ba', 36.4, 74100, 10, 0.6, 'ba_result')">
+              </td>
+              <td>
+                <div id="ba_result" class="result-scope1">0</div>
+              </td>
+            </tr>
+            <!-- B-B -->
+  <tr>
+    <td>B-B (단위:L)</td>
+    <td>
+      <input type="number" id="bb" placeholder="0" oninput="calculateFuel('bb', 35.0, 77400, 10, 0.6, 'bb_result')">
+    </td>
+    <td>
+      <div id="bb_result" class="result-scope1">0</div>
+    </td>
+  </tr>
+  <!-- B-C -->
+  <tr>
+    <td>B-C (단위:L)</td>
+    <td>
+      <input type="number" id="bc" placeholder="0" oninput="calculateFuel('bc', 39.2, 77400, 10, 0.6, 'bc_result')">
+    </td>
+    <td>
+      <div id="bc_result" class="result-scope1">0</div>
+    </td>
+  </tr>
+  <!-- LPG -->
+  <tr>
+    <td>액화석유가스 (LPG) (단위:Nm^3)</td>
+    <td>
+      <input type="number" id="lpg" placeholder="0" oninput="calculateFuel('lpg', 57.7, 63100, 5, 0.1, 'lpg_result')">
+    </td>
+    <td>
+      <div id="lpg_result" class="result-scope1">0</div>
+    </td>
+  </tr>
+  <!-- 납사 -->
+  <tr>
+    <td>납사 (단위:L)</td>
+    <td>
+      <input type="number" id="naphtha" placeholder="0" oninput="calculateFuel('naphtha', 30.3, 73300, 10, 0.6, 'naphtha_result')">
+    </td>
+    <td>
+      <div id="naphtha_result" class="result-scope1">0</div>
+    </td>
+  </tr>
+  <!-- 석유코크 -->
+  <tr>
+    <td>석유코크 (단위:kg)</td>
+    <td>
+      <input type="number" id="petroleum_coke" placeholder="0" oninput="calculateFuel('petroleum_coke', 31.6, 97500, 10, 0.6, 'petroleum_coke_result')">
+    </td>
+    <td>
+      <div id="petroleum_coke_result" class="result-scope1">0</div>
+    </td>
+  </tr>
+          </tbody>
+        </table>
+
+    <h3>[고체연료]</h3>
+    <table>
+      <thead>
+        <tr>
+            <th>연료 종류</th>
+            <th>사용량 입력</th>
+            <th>총계 (tCO₂eq)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td>국내 무연탄 (단위:kg)</td>
+            <td>
+              <input type="number" id="domestic_coal" placeholder="0" oninput="calculateFuel('domestic_coal', 18.6, 98300, 10, 1.5, 'domestic_coal_result')">
+            </td>
+            <td>
+              <div id="domestic_coal_result" class="result-scope1">0</div>
+            </td>
+          </tr>
+          <!-- 수입 무연탄 -->
+          <tr>
+            <td>수입 무연탄 (단위:kg)</td>
+            <td>
+              <input type="number" id="imported_coal" placeholder="0" oninput="calculateFuel('imported_coal', 24.4, 98300, 10, 1.5, 'imported_coal_result')">
+            </td>
+            <td>
+              <div id="imported_coal_result" class="result-scope1">0</div>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+
+    <h3>[기체연료]</h3>
+    <table>
+      <thead>
+        <tr>
+            <th>연료 종류</th>
+            <th>사용량 입력</th>
+            <th>총계 (tCO₂eq)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 코크스가스 -->
+        <tr>
+          <td>코크스가스 (단위:kg)</td>
+          <td>
+            <input type="number" id="coke_gas" placeholder="0" oninput="calculateFuel('coke_gas', 28.9, 44400, 5, 0.1, 'coke_gas_result')">
+          </td>
+          <td>
+            <div id="coke_gas_result" class="result-scope1">0</div>
+          </td>
+        </tr>
+        <!-- 천연가스 (LNG) -->
+        <tr>
+          <td>천연가스 (LNG) (단위:Nm^3)</td>
+          <td>
+            <input type="number" id="lng" placeholder="0" oninput="calculateFuel('lng', 39.4, 56100, 5, 0.1, 'lng_result')">
+          </td>
+          <td>
+            <div id="lng_result" class="result-scope1">0</div>
+          </td>
+        </tr>
+        </tbody>
+        </table>
+
+        <!-- 이동연소 -->
+<h3>[이동연소]</h3>
+<p>추후 기입 예정</p>
+<table>
+    <thead>
+      <tr>
+        <th>연료 종류</th>
+        <th>사용량 </th>
+        <th>총 배출량 (tCO₂eq)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 휘발유 -->
+      <tr>
+        <td>휘발유 (단위:kg)</td>
+        <td><input type="number" id="gasoline_usage" placeholder="0" oninput="calculateFuel('gasoline_usage', 30.3, 69300, 25, 8, 'gasoline_total')"></td>
+        <td>
+          <div id="gasoline_total" class="result-scope1">0.000000</div>
+        </td>
+      </tr>
+      <!-- 경유 -->
+      <tr>
+        <td>경유 (단위:kg)</td>
+        <td><input type="number" id="diesel_usage" placeholder="0" oninput="calculateFuel('diesel_usage', 35.3, 74100, 3.9, 3.9, 'diesel_total')"></td>
+        <td>
+          <div id="diesel_total" class="result-scope1">0.000000</div>
+        </td>
+      </tr>
+      <!-- LPG -->
+      <tr>
+        <td>LPG (단위:Nm^3)</td>
+        <td><input type="number" id="lpg_usage" placeholder="0" oninput="calculateFuel('lpg_usage', 26356.8, 63100, 62, 0.2, 'lpg_total')"></td>
+        <td>
+          <div id="lpg_total" class="result-scope1">0.000000</div>
+        </td>
+      </tr>
+      <!-- CNG -->
+      <tr>
+        <td>CNG (단위:Nm^3)</td>
+        <td><input type="number" id="cng_usage" placeholder="0" oninput="calculateFuel('cng_usage', 39.4, 56100, 92, 3, 'cng_total')"></td>
+        <td>
+          <div id="cng_total" class="result-scope1">0.000000</div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="total-container">
+      <h3>Scope 1 합계 배출량</h3>
+      <p><span id="scope1_total">0.000</span> tCO₂eq</p>
+  </div>
+</div>
+
+  <div class="section">
+    <h2>Scope 2 (간접 배출량)</h2>
+  
+    <h3>[전력 사용량]</h3>
+    <p>* 기업 조직 경계에서 사용한 연간 전력 사용량 (단위: kWh)</p>
+    <input type="number" id="electricity" placeholder="0" oninput="calculateScope2Electricity()">
+    <p>총 배출량: <span id="electricity_result" class="scope2-result">0.000000</span> tCO₂eq</p>
+  
+    <h3>[열/스팀 사용량]</h3>
+    <p>* 외부에서 공급받은 열/스팀 사용량 (단위: GJ)</p>
+    <input type="number" id="steam" placeholder="0" oninput="calculateScope2Steam()">
+    <p>총 배출량: <span id="steam_result" class="scope2-result">0.000000</span> tCO₂eq</p>
+    <div class="total-container">
+      <h3>Scope 2 합계 배출량</h3>
+      <p><span id="scope2-total">0.000</span> tCO₂eq</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Scope 3 (기타 배출량)</h2>
+    <p>* 아래는 농축산업 관련 기타 배출 항목입니다. 가능한 것만 기입하여 주십시오.</p>
+
+    <h3>가축 (단위: 두수)</h3>
+<table>
+  <thead>
+    <tr>
+      <th>가축 종류</th>
+      <th>두수 입력</th>
+      <th>연간 배출량 (tCO₂eq)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>소</td>
+      <td><input type="number" id="cow" placeholder="0" oninput="calculateLivestock('cow', 1.239, 'cow_result')"></td>
+      <td><span id="cow_result" class="result-scope3">0.000</span></td>
+    </tr>
+    <tr>
+      <td>돼지</td>
+      <td><input type="number" id="pig" placeholder="0" oninput="calculateLivestock('pig', 0.2415, 'pig_result')"></td>
+      <td><span id="pig_result" class="result-scope3">0.000</span></td>
+    </tr>
+    <tr>
+      <td>닭</td>
+      <td><input type="number" id="chicken" placeholder="0" oninput="calculateLivestock('chicken', 0.00105, 'chicken_result')"></td>
+      <td><span id="chicken_result" class="result-scope3">0.000</span></td>
+    </tr>
+  </tbody>
+</table>
+
+    <h3>[농업 및 기타 산업 배출량]</h3>
+<p>사용 중인 시설 생산 시 온실가스 배출량 (단위: tCO₂eq)</p>
+<input type="number" id="facility_emissions" placeholder="0" oninput="calculateMiscellaneous('facility_emissions', 'facility_result', 1e-3)">
+<p>결과: <span id="facility_result" class="result-scope3">0.000</span></p>
+
+<p>사용 중인 비료 및 농업 생산 시 온실가스 배출량 (단위: tCO₂eq)</p>
+<input type="number" id="fertilizer_emissions" placeholder="0" oninput="calculateMiscellaneous('fertilizer_emissions', 'fertilizer_result', 1e-3)">
+<p>결과: <span id="fertilizer_result" class="result-scope3">0.000</span></p>
+
+<p>사용 중인 기계 설비 및 제조 시 온실가스 배출량 (단위: tCO₂eq)</p>
+<input type="number" id="machinery_emissions" placeholder="0" oninput="calculateMiscellaneous('machinery_emissions', 'machinery_result', 1e-3)">
+<p>결과: <span id="machinery_result" class="result-scope3">0.000</span></p>
+
+<h3>[기타 배출 항목]</h3>
+<p>* 가능한 것만 입력하십시오.</p>
+
+<!-- 온실가스 배출량 -->
+<table>
+  <thead>
+    <tr>
+      <th colspan="2">사용 중인 포장재 제조 시 온실가스 배출량</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>온실가스 배출량 (단위: tCO₂eq)</td>
+      <td><input type="number" id="packaging_emissions" placeholder="0" oninput="calculateMiscellaneous('packaging_emissions', 'packaging_result', 1e-3)"></td>
+    </tr>
+    <tr>
+      <td>결과</td>
+      <td><span id="packaging_result" class="result-scope3">0.000</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 연료 사용 -->
+<h4>외부 업체 운송 및 유통에 따른 연료 사용량</h4>
+<p>이용된 화물운송차량 한 대가 기업 제품의 운송 및 유통에 연간 사용한 연료를 기입하십시오.</p>
+<table>
+  <thead>
+    <tr>
+      <th>연료 종류</th>
+      <th>사용량</th>
+      <th>총 배출량 (tCO₂eq)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>휘발유 (단위:kg)</td>
+      <td>
+        <input type="number" id="scope3_gasoline_usage" placeholder="0" 
+               oninput="calculateScope3Fuel('scope3_gasoline_usage', 30.3, 69300, 25, 8, 'scope3_gasoline_total')">
+      </td>
+      <td>
+        <div id="scope3_gasoline_total" class="result-scope3">0.000000</div>
+      </td>
+    </tr>
+    <tr>
+      <td>경유 (단위:kg)</td>
+      <td>
+        <input type="number" id="scope3_diesel_usage" placeholder="0" 
+               oninput="calculateScope3Fuel('scope3_diesel_usage', 35.3, 74100, 3.9, 3.9, 'scope3_diesel_total')">
+      </td>
+      <td>
+        <div id="scope3_diesel_total" class="result-scope3">0.000000</div>
+      </td>
+    </tr>
+    <tr>
+      <td>LPG (단위:Nm^3)</td>
+      <td>
+        <input type="number" id="scope3_lpg_usage" placeholder="0" 
+               oninput="calculateScope3Fuel('scope3_lpg_usage', 26356.8, 63100, 62, 0.2, 'scope3_lpg_total')">
+      </td>
+      <td>
+        <div id="scope3_lpg_total" class="result-scope3">0.000000</div>
+      </td>
+    </tr>
+    <tr>
+      <td>CNG (단위:Nm^3)</td>
+      <td>
+        <input type="number" id="scope3_cng_usage" placeholder="0" 
+               oninput="calculateScope3Fuel('scope3_cng_usage', 39.4, 56100, 92, 3, 'scope3_cng_total')">
+      </td>
+      <td>
+        <div id="scope3_cng_total" class="result-scope3">0.000000</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="total-container">
+  <h3>Scope 3 합계 배출량</h3>
+  <p><span id="scope3_total">0.000</span> tCO₂eq</p>
+  
+</div>
+
+<button onclick="window.location.href='/nextsurvey'">돌아가기</button>
+
+  
+  
+
+  <script>
+    function calculateFuel(id, factor, co2Factor, ch4Factor, n2oFactor, resultId) {
+      // 입력값 가져오기
+      const usage = parseFloat(document.getElementById(id).value) || 0;
+
+      // 배출량 계산
+      const co2 = usage * factor * co2Factor * 1e-9;
+      const ch4 = usage * factor * ch4Factor * 21 * 1e-9;
+      const n2o = usage * factor * n2oFactor * 310 * 1e-9;
+
+      // 총계 계산
+      const total = co2 + ch4 + n2o;
+
+      // 결과 업데이트
+      document.getElementById(resultId).innerText = total.toFixed(6);
+
+      // Scope 1 합계 업데이트
+    updateScope1Total();
+    }
+
+    function updateScope1Total() {
+    // Scope 1 개별 항목의 결과값 가져오기
+    const results = document.querySelectorAll(".result-scope1");
+     
+    
+    let total = 0;
+
+    // 결과값 합산
+    results.forEach(result => {
+        total += parseFloat(result.innerText) || 0;
+    });
+
+    // Scope 1 합계 업데이트
+    document.getElementById("scope1_total").innerText = total.toFixed(3);
+}
+
+    // 전력 사용량 계산 함수
+function calculateScope2Electricity() {
+  const usage = parseFloat(document.getElementById("electricity").value) || 0;
+
+  // 배출량 계산
+  const co2 = usage * 0.4653 * 1e-3;
+  const ch4 = usage * 0.0054 * 21 * 1e-3;
+  const n2o = usage * 0.0027 * 310 * 1e-3;
+
+  // 총계
+  const total = co2 + ch4 + n2o;
+
+  // 결과 표시
+  document.getElementById("electricity_result").innerText = total.toFixed(6);
+
+  // Scope 2 최종 합계 업데이트
+  updateScope2Total();
+}
+
+// 열/스팀 사용량 계산 함수
+function calculateScope2Steam() {
+  const usage = parseFloat(document.getElementById("steam").value) || 0;
+
+  // 배출량 계산
+  const co2 = usage * 35936 * 1 ;
+  const ch4 = usage * 0.0054 * 21 ;
+  const n2o = usage * 0.0027 * 310 ;
+
+  // 총계
+  const total = co2 + ch4 + n2o;
+
+  // 결과 표시
+  document.getElementById("steam_result").innerText = total.toFixed(6);
+
+  // Scope 2 최종 합계 업데이트
+  updateScope2Total();
+}
+
+// Scope 2 총합 계산 함수
+function updateScope2Total() {
+  const electricityTotal = parseFloat(document.getElementById("electricity_result").innerText) || 0;
+  const steamTotal = parseFloat(document.getElementById("steam_result").innerText) || 0;
+
+  // Scope 2 총합 계산
+  const scope2Total = electricityTotal + steamTotal;
+
+  // 결과 업데이트
+  document.getElementById("scope2-total").innerText = scope2Total.toFixed(6);
+}
+
+
+// 농업 및 기타 항목 배출량 계산 함수
+function calculateMiscellaneous(id, resultId, multiplier) {
+  const usage = parseFloat(document.getElementById(id).value) || 0;
+
+  // 배출량 계산
+  const total = usage * multiplier;
+
+  // 결과 업데이트
+  const resultElement = document.getElementById(resultId);
+  resultElement.innerText = total.toFixed(3);
+  resultElement.classList.add("result-scope3"); // Scope 3 클래스 추가
+
+  updateScope3Total();
+}
+
+// 가축 배출량 계산 함수
+function calculateLivestock(id, emissionFactor, resultId) {
+  const count = parseFloat(document.getElementById(id).value) || 0;
+
+  // 배출량 계산
+  const totalEmissions = count * emissionFactor;
+
+  // 결과 업데이트
+  const resultElement = document.getElementById(resultId);
+  resultElement.innerText = totalEmissions.toFixed(3);
+  resultElement.classList.add("result-scope3"); // Scope 3 클래스 추가
+
+  updateScope3Total();
+}
+
+// Scope 3 연료 배출량 계산 함수
+function calculateScope3Fuel(id, factor, co2Factor, ch4Factor, n2oFactor, resultId) {
+  // 입력값 가져오기
+  const usage = parseFloat(document.getElementById(id).value) || 0;
+
+  // 배출량 계산
+  const co2 = usage * factor * co2Factor * 1e-9;
+  const ch4 = usage * factor * ch4Factor * 21 * 1e-9;
+  const n2o = usage * factor * n2oFactor * 310 * 1e-9;
+
+  // 총계 계산
+  const total = co2 + ch4 + n2o;
+
+  // 결과 업데이트
+  const resultElement = document.getElementById(resultId);
+  resultElement.innerText = total.toFixed(6);
+
+  // Scope 3 클래스 추가
+  resultElement.classList.add("result-scope3");
+
+  // Scope 3 최종 합계 업데이트
+  updateScope3Total();
+}
+
+// Scope 3 최종 합계 계산 함수
+function updateScope3Total() {
+  // Scope 3 개별 항목의 결과값 가져오기
+  const results = document.querySelectorAll(".result-scope3");
+  
+  
+  let total = 0;
+
+  // 결과값 합산
+  results.forEach(result => {
+    total += parseFloat(result.innerText) || 0;
+  });
+
+  // Scope 3 합계 업데이트
+  document.getElementById("scope3_total").innerText = total.toFixed(3);
+}
+  </script>
+</body>
+</html>
+
+
+        
+
+
+
+
+
+

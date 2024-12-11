@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>평가항목</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+         body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-image: url('/static/images/1.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px; /* 화면 양쪽에 공백 추가 */
+        }
+        .container {
+            position: relative;
+            background-color: #ffffff;
+            padding: 30px 100px 30px 100px; /* 상단 여백을 줄임 */
+            margin: 20px auto; /* 중앙 정렬 및 상단 여백 */
+            width: 80%;
+            max-width: 700px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+            max-height: 90vh;
+            opacity: 1; /* 약간의 투명도 추가 */
+        }
+        .header-container {
+            background-color: #d9fdd3; /* 연초록색 */
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .header-container h1 {
+            font-size: 24px;
+            color: #333;
+            margin: 0;
+        }
+        .super-category-title {
+    color: #1E88E5; /* 진한 청록색 */
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: left;
+    border-left: 6px solid #1E88E5; /* 왼쪽 선 강조 */
+    padding-left: 12px;
+}
+        .category-title {
+            color: #1b5e20; /* 진한 초록색 */
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            text-align: left;
+            border-left: 4px solid #1b5e20; /* 왼쪽 선 강조 */
+            padding-left: 10px;
+        }
+        .question-container {
+            background-color: #fffde7; /* 더 연한 노란색 */
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .question-container:last-child {
+            margin-bottom: 0;
+        }
+        .question p {
+            font-size: 18px;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 15px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background-color: #fffef2; /* 더 연한 노란색 */
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .option:hover {
+            background-color: #fef9e7; /* 호버 시 조금 더 진한 연노란색 */
+        }
+        .option input {
+            transform: scale(1.2);
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+        /* 교육영상 버튼 스타일 */
+        .video-btn {
+    background-color: #32CD32; /* 녹색 */
+    color: #000; /* 검정 글씨 */
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    text-decoration: none;
+    opacity: 0.90; /* 약간의 투명도 */
+}
+.video-container {
+    position: absolute; /* 컨테이너 안에서 절대 위치 */
+    top: 120px; /* 컨테이너의 상단 여백 */
+    right: 20px; /* 컨테이너의 우측 여백 */
+    display: flex;
+    flex-direction: column; /* 버튼과 문구를 세로 정렬 */
+    align-items: flex-end; /* 우측 정렬 */
+    gap: 5px; /* 버튼과 문구 사이의 간격 */
+    z-index: 10; /* 버튼이 다른 요소 위에 오도록 설정 */
+}
+
+.video-note-container {
+    background-color: #f0f8ff; /* 연한 하늘색 */
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: fit-content; /* 컨테이너 크기를 텍스트에 맞게 조정 */
+    margin-top: 65px; /* 버튼과 문구 사이 간격 */
+    opacity: 0.80; /* 약간의 투명도 추가 */
+}
+
+.video-note {
+    color: #000; /* 검정 글씨 */
+    font-size: 15px; /* 글씨 크기 */
+    font-weight: bold;
+    margin: 0;
+    text-align: right; /* 문구 우측 정렬 */
+}
+.video-btn:hover {
+    background-color: #228B22; /* 더 진한 녹색 */
+    opacity: 1; /* 호버 시 투명도 제거 */
+}
+.video-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    z-index: 11;
+    display: none; /* 팝업 열릴 때만 표시 */
+}
+        .video-popup iframe {
+    width: 90%; /* 화면 가로 크기에 비례 */
+    height: 50vh; /* 화면 세로 크기에 비례 */
+    border: none;
+    max-width: 800px; /* 최대 너비 제한 */
+    max-height: 450px; /* 최대 높이 제한 */
+}
+.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+        .close-popup:hover {
+            color: #000;
+        }
+        .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 10;
+    display: none; /* 팝업 열릴 때만 표시 */
+}
+.video-popup video {
+    width: 100%;
+    height: auto;
+}
+        
+    </style>
+</head>
+<body>
+     
+
+    <div class="overlay"></div>
+<div class="video-popup">
+    <button class="close-popup">&times;</button>
+    <video controls>
+        <source src="/static/videos/Greenmong education video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+    
+
+    <div class="container">
+        <div class="video-container">
+            <button class="video-btn">교육영상</button>
+            <p class="video-note">평가 전 시청 부탁드립니다.</p>
+        </div>
+
+        <!-- 제목 컨테이너 -->
+        <div class="header-container">
+            <h1>평가항목</h1>
+        </div>
+
+        <!-- 설문 폼 -->
+        <form action="/nextsurvey/<%= subcategory %>" method="GET">
+            <input type="hidden" name="subcategory" value="<%= subcategory %>">
+
+        <!-- 대대분류 환경경영체계 -->
+        <div class="super-category-title">환경 경영 체계</div>
+
+            <!-- 대분류 E01 : 환경 경영 목표 수립 -->
+<div class="category-title" style="margin-bottom: 20px; background: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); font-size: 18px; font-weight: bold; color: #333;">
+    E01 : 환경 경영 목표 수립
+</div>
+
+<% questions.slice(0, 5).forEach((questionItem, index) => { %>
+    <div class="question-container" style="margin-bottom: 30px; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background: #f9f9f9; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+        <div class="question">
+            <p><%= questionItem.question %></p>
+        </div>
+        <div class="options">
+            <% questionItem.checklist.forEach((option, optionIndex) => { %>
+                <label class="option">
+                    <input type="radio" name="question<%= index + 1 %>" value="<%= option %>" required>
+                    <span><%= option %></span>
+                </label>
+            <% }); %>
+        </div>
+    </div>
+<% }); %>
+
+<!-- 대분류 E02 : 환경 경영 추진 체계 -->
+<div class="category-title" style="margin-bottom: 20px; background: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); font-size: 18px; font-weight: bold; color: #333;">
+    E02 : 환경 경영 추진 체계
+</div>
+
+<% questions.slice(5, 12).forEach((questionItem, index) => { %>
+    <div class="question-container" style="margin-bottom: 30px; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background: #f9f9f9; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+        <div class="question" style="margin-bottom: 15px;">
+            <p style="font-size: 18px; font-weight: bold; color: #333;"><%= questionItem.question %></p>
+        </div>
+        <div class="options" style="margin-bottom: 15px;">
+            <% questionItem.checklist.forEach((option, optionIndex) => { %>
+                <label class="option" style="display: block; margin-bottom: 10px;">
+                    <input type="radio" name="question<%= index + 6 %>" value="<%= option %>" required>
+                    <span style="font-size: 16px; color: #555;"><%= option %></span>
+                </label>
+            <% }); %>
+        </div>
+    </div>
+<% }); %>
+
+<!-- 대분류 E03 : 환경 법/규제 위반 -->
+<div class="category-title" style="margin-bottom: 20px; background: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); font-size: 18px; font-weight: bold; color: #333;">
+    E03 : 환경 법/규제 위반
+</div>
+
+<% questions.slice(12, 14).forEach((questionItem, index) => { %>
+    <div class="question-container" style="margin-bottom: 30px; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background: #f9f9f9; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+        <div class="question" style="margin-bottom: 15px;">
+            <p style="font-size: 18px; font-weight: bold; color: #333;"><%= questionItem.question %></p>
+        </div>
+        <div class="options" style="margin-bottom: 15px;">
+            <% questionItem.checklist.forEach((option, optionIndex) => { %>
+                <label class="option" style="display: block; margin-bottom: 10px;">
+                    <input type="radio" name="question<%= index + 12 %>" value="<%= option %>" required>
+                    <span style="font-size: 16px; color: #555;"><%= option %></span>
+                </label>
+            <% }); %>
+        </div>
+    </div>
+<% }); %>
+
+                <button type="submit" class="submit-btn">다음</button>
+            </form>
+    </div>
+    <script>
+        const videoBtn = document.querySelector('.video-btn');
+        const videoPopup = document.querySelector('.video-popup');
+        const overlay = document.querySelector('.overlay');
+        const closePopup = document.querySelector('.close-popup');
+    
+        videoBtn.addEventListener('click', () => {
+            videoPopup.style.display = 'block';
+            overlay.style.display = 'block';
+        });
+    
+        closePopup.addEventListener('click', () => {
+            videoPopup.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+    
+        overlay.addEventListener('click', () => {
+            videoPopup.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+        
+    </script>
+</body>
+</html>
+
+
+        
+
+
+
+
+
+

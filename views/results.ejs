@@ -188,52 +188,35 @@
     </div>
 
     <!-- 기업 평가 모니터 -->
-    <div class="monitor">
-        <h3 style="font-size: 24px; color: #333; margin-bottom: 20px;">기업 환경 이슈 모니터</h3>
-        <div style="overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 16px;">
-                <thead>
-                    <tr style="background: #f4f4f4; text-align: left;">
-                        <th style="padding: 10px; border-bottom: 2px solid #ddd;">귀사의 환경 긍정 이슈</th>
-                        <th style="padding: 10px; border-bottom: 2px solid #ddd;">귀사의 환경 부정 이슈</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% 
-                    const positive = results?.positive || [];
-                    const negative = results?.negative || [];
-                    const maxLength = Math.max(positive.length, negative.length);
-
-                    for (let i = 0; i < maxLength; i++) {
-                    %>
-                    <tr>
-                        <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                            <% if (positive[i]) { %>
-                                <a href="<%= positive[i].link %>" target="_blank" style="color: #4CAF50; text-decoration: none;">
-                                    <%= positive[i].title %>
-                                </a>
-                            <% } else { %>
-                                &nbsp; <!-- 빈칸 처리 -->
-                            <% } %>
-                        </td>
-                        <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                            <% if (negative[i]) { %>
-                                <a href="<%= negative[i].link %>" target="_blank" style="color: #f44336; text-decoration: none;">
-                                    <%= negative[i].title %>
-                                </a>
-                            <% } else { %>
-                                &nbsp; <!-- 빈칸 처리 -->
-                            <% } %>
-                        </td>
-                    </tr>
-                    <% } %>
-                </tbody>
-            </table>
-        </div>
+<div class="monitor">
+    <h3 style="font-size: 24px; color: #333; margin-bottom: 20px;">기업 환경 이슈 모니터</h3>
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 16px;">
+            <thead>
+                <tr style="background: #f4f4f4; text-align: left;">
+                    <th style="padding: 10px; border-bottom: 2px solid #ddd;">귀사의 환경 이슈</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% 
+                const issues = results?.all || []; // 모든 이슈를 가져옴
+                for (let i = 0; i < issues.length; i++) {
+                %>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                        <a href="<%= issues[i].link %>" target="_blank" style="color: #333; text-decoration: none;">
+                            <%= issues[i].title %>
+                        </a>
+                    </td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
     </div>
+</div>
     <!-- 추가 문구 -->
     <p style="font-size: 14px; line-height: 1.6; color: #666; margin-top: 10px; text-align: center;">
-        귀사의 환경 관련 부정적 이슈와 긍정적 이슈를 확인하고 환경 계획을 수립하세요.<br>
+        귀사의 환경 관련 이슈를 확인하고 환경 계획을 수립하세요.<br>
         본 모니터는 키워드 기반 웹크롤링 기능이기 때문에 오류를 포함할 수 있습니다.
     </p>
 </div>

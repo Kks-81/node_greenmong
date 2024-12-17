@@ -287,8 +287,36 @@
                             </label>
                         <% }); %>
                     </div>
+                    <!-- 입력 필드 -->
+                    <div id="inputBox<%= index %>" style="display: none; margin-top: 10px;">
+                        <label for="renewableEnergyRatio<%= index %>" style="font-size: 14px; color: #333;">
+                            총 에너지 사용량 대비 재생 가능 에너지 비율 (%) 입력
+                        </label>
+                        <input 
+                            type="number" 
+                            id="renewableEnergyRatio<%= index %>" 
+                            name="renewableEnergyRatio<%= index %>" 
+                            placeholder="예: 25" 
+                            style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;"
+                            min="0" 
+                            max="100" 
+                            step="0.1">
+                    </div>
                 </div>
             <% }); %>
+
+            <script>
+                function toggleInputBox(index, option) {
+                    const inputBox = document.getElementById(`inputBox${index}`);
+                    if (option.includes('비율입력')) {
+                        inputBox.style.display = 'block';
+                    } else {
+                        inputBox.style.display = 'none';
+                    }
+                }
+            </script>
+
+            
 
              <!-- 대분류 E07 -->
              <div class="category-title">E07: 용수 사용량</div>

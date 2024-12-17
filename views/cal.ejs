@@ -41,9 +41,10 @@ p {
 .section {
     margin-bottom: 30px;
     padding: 15px;
-    background-color: #fdf5e6; /* 아이보리 색 */
+    background-color: #ffffff; /* 흰색 */
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    border: 1px solid #000000; /* 검정색 테두리 추가 */
 }
 
 table {
@@ -150,10 +151,10 @@ button:hover {
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #f9f9f9;
+    background-color: #ffe4e1; /* 연분홍색 */
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
+}
   .total-container h3 {
     margin-bottom: 10px;
     font-size: 18px;
@@ -170,6 +171,69 @@ button:hover {
         grid-template-columns: 1fr; /* 작은 화면에서는 단일 열 레이아웃 */
     }
 }
+
+/* Scope 1 제목 스타일 */
+.scope-title {
+    display: inline-block; /* 글씨 크기에 맞게 박스 크기 조정 */
+    padding: 10px 20px; /* 텍스트 주위 여백 */
+    background-color: #fffacd; /* 연한 노란색 */
+    border-radius: 10px; /* 둥근 모서리 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 */
+    font-size: 18px; /* 글씨 크기 */
+    color: #006400; /* 진한 초록색 */
+    font-weight: bold; /* 글씨 굵게 */
+    text-align: center;
+    margin-bottom: 20px; /* 제목 아래 간격 추가 */
+}
+
+    .table-cell {
+    border: 1px solid #000000; /* 검은색 테두리 */
+    padding: 10px; /* 기본 여백 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    vertical-align: middle; /* 세로 정렬 */
+}
+
+/* 공통 스타일: Second Section */
+.second-section {
+    border: 1px solid #000000; /* 검은색 테두리 */
+    padding: 15px; /* 내부 여백 */
+    margin-bottom: 30px; /* 각 칸 간의 하단 여백 */
+    margin-top: 20px; /* 제목과 섹션 사이의 상단 여백 */
+    border-radius: 5px; /* 둥근 모서리 */
+    background-color: #ffffff; /* 흰색 배경 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
+}
+
+    /* 제목 스타일 */
+    .second-section h3 {
+        margin-top: 0; /* 상단 여백 제거 */
+        color: #006400; /* 진한 초록색 글씨 */
+        font-size: 18px; /* 제목 글씨 크기 */
+        font-weight: bold;
+    }
+
+    /* 텍스트 스타일 */
+    .second-section p {
+        margin: 10px 0; /* 위아래 여백 */
+        font-size: 14px; /* 글씨 크기 */
+        color: #4b5320; /* 어두운 초록색 */
+    }
+
+    /* 입력 필드 스타일 */
+    .second-section input {
+        width: 100%; /* 입력 필드 전체 너비 */
+        padding: 10px; /* 내부 여백 */
+        border: 1px solid #ccc; /* 기본 테두리 */
+        border-radius: 5px; /* 둥근 모서리 */
+        margin-bottom: 10px; /* 아래쪽 여백 */
+        font-size: 14px; /* 글씨 크기 */
+    }
+
+    /* 결과 강조 스타일 */
+    .second-section span {
+        font-weight: bold; /* 텍스트 강조 */
+        color: #333333; /* 어두운 색상 */
+    }
   </style>
 </head>
 <body>
@@ -180,9 +244,10 @@ button:hover {
   
 
     <div class="section">
-        <h2>Scope 1 (직접 배출량)</h2>
+      <div class="scope-title"><h2>Scope 1 (직접 배출량)</h2></div>
         <p>* 기업 조직 경계의 보일러, 난방, 발전기 등에서 연간 사용한 모든 연료를 모두 기입하여 주십시오.</p>
         
+        <div class="second-section">
         <h3>[액체연료]</h3>
         <table>
           <thead>
@@ -285,7 +350,9 @@ button:hover {
   </tr>
           </tbody>
         </table>
-
+      </div>
+    
+    <div class="second-section">
     <h3>[고체연료]</h3>
     <table>
       <thead>
@@ -317,7 +384,9 @@ button:hover {
           </tr>
         </tbody>
     </table>
+  </div>
 
+  <div class="second-section">
     <h3>[기체연료]</h3>
     <table>
       <thead>
@@ -350,8 +419,10 @@ button:hover {
         </tr>
         </tbody>
         </table>
+      </div>
 
         <!-- 이동연소 -->
+<div class="second-section">
 <h3>[이동연소]</h3>
 <p>추후 기입 예정</p>
 <table>
@@ -397,6 +468,8 @@ button:hover {
       </tr>
       </tbody>
     </table>
+  </div>
+
     <div class="total-container">
       <h3>Scope 1 합계 배출량</h3>
       <p><span id="scope1_total">0.000</span> tCO₂eq</p>
@@ -404,17 +477,21 @@ button:hover {
 </div>
 
   <div class="section">
-    <h2>Scope 2 (간접 배출량)</h2>
-  
+    <div class="scope-title"><h2>Scope 2 (간접 배출량)</h2></div>
+    
+    <div class="second-section">
     <h3>[전력 사용량]</h3>
     <p>* 기업 조직 경계에서 사용한 연간 전력 사용량 (단위: kWh)</p>
     <input type="number" id="electricity" placeholder="0" oninput="calculateScope2Electricity()">
     <p>총 배출량: <span id="electricity_result" class="scope2-result">0.000000</span> tCO₂eq</p>
-  
+    </div>
+    
+    <div class="second-section">
     <h3>[열/스팀 사용량]</h3>
     <p>* 외부에서 공급받은 열/스팀 사용량 (단위: GJ)</p>
     <input type="number" id="steam" placeholder="0" oninput="calculateScope2Steam()">
     <p>총 배출량: <span id="steam_result" class="scope2-result">0.000000</span> tCO₂eq</p>
+   </div>
     <div class="total-container">
       <h3>Scope 2 합계 배출량</h3>
       <p><span id="scope2-total">0.000</span> tCO₂eq</p>
@@ -422,9 +499,10 @@ button:hover {
   </div>
 
   <div class="section">
-    <h2>Scope 3 (기타 배출량)</h2>
+    <div class="scope-title"><h2>Scope 3 (기타 배출량)</h2></div>
     <p>* 아래는 농축산업 관련 기타 배출 항목입니다. 가능한 것만 기입하여 주십시오.</p>
-
+    
+    <div class="second-section">
     <h3>가축 (단위: 두수)</h3>
 <table>
   <thead>
@@ -452,7 +530,9 @@ button:hover {
     </tr>
   </tbody>
 </table>
+</div>
 
+<div class="second-section">
     <h3>[농업 및 기타 산업 배출량]</h3>
 <p>사용 중인 시설 생산 시 온실가스 배출량 (단위: tCO₂eq)</p>
 <input type="number" id="facility_emissions" placeholder="0" oninput="calculateMiscellaneous('facility_emissions', 'facility_result', 1e-3)">
@@ -465,7 +545,9 @@ button:hover {
 <p>사용 중인 기계 설비 및 제조 시 온실가스 배출량 (단위: tCO₂eq)</p>
 <input type="number" id="machinery_emissions" placeholder="0" oninput="calculateMiscellaneous('machinery_emissions', 'machinery_result', 1e-3)">
 <p>결과: <span id="machinery_result" class="result-scope3">0.000</span></p>
+</div>
 
+<div class="second-section">
 <h3>[기타 배출 항목]</h3>
 <p>* 가능한 것만 입력하십시오.</p>
 
@@ -542,6 +624,8 @@ button:hover {
     </tr>
   </tbody>
 </table>
+</div>
+
 <div class="total-container">
   <h3>Scope 3 합계 배출량</h3>
   <p><span id="scope3_total">0.000</span> tCO₂eq</p>
@@ -713,7 +797,6 @@ function updateScope3Total() {
   </script>
 </body>
 </html>
-
 
         
 

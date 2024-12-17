@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG 평가 결과</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-image: url('/static/images/1.jpg'); /* 배경 이미지 경로 */
+            background-size: cover; /* 화면에 꽉 차도록 설정 */
+            background-repeat: no-repeat; /* 이미지 반복 방지 */
+            background-attachment: fixed; /* 배경 고정 */
+            background-position: center; /* 이미지 중앙 정렬 */
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 40px;
+            background: #fffde7;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            opacity: 0.97; /* 약간의 투명도 추가 */
+        }
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            color: #4CAF50; /* 초록색 */
+        }
+        .section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+        }
+        .section-content {
+            flex: 1;
+            margin-left: 20px;
+        }
+        .grade-box {
+            text-align: center;
+            background: #FFEB3B; /* 노란색 */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .grade-box h2 {
+            font-size: 28px;
+            margin: 10px 0;
+            color: #333;
+        }
+        .grade-box .grade {
+            font-size: 80px;
+            font-weight: bold;
+            color: #4CAF50; /* 초록색 */
+        }
+        .chart-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .recommendations, .monitor {
+            margin-top: 40px;
+        }
+        .recommendations h3, .monitor h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #4CAF50; /* 초록색 */
+        }
+        .recommendations ul, .monitor ul {
+            list-style: none;
+            padding: 0;
+        }
+        .recommendations ul li, .monitor ul li {
+            margin: 10px 0;
+        }
+        .table-container {
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1>그린몽 환경 경영 평과 결과보고서</h1>
+
+        <div class="section" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; flex-wrap: wrap;">
+            <!-- 왼쪽: 통합 등급 박스 -->
+            <div style="flex: 1; max-width: 400px; text-align: center; background: #FFEB3B; padding: 20px; border-radius: 10px; word-wrap: break-word; overflow-wrap: break-word; font-size: calc(1em + 0.2vw);">
+                <h2 style="margin: 0; font-size: 24px; color: #333;">통합 등급</h2>
+                <p style="margin: 10px 0; font-size: 18px; color: #333;">귀사의 환경경영 통합 등급은</p>
+                <div style="font-size: 80px; font-weight: bold; color: #4CAF50;">B</div>
+                <p style="margin: 10px 0; font-size: 18px; color: #333;">로 평가되었습니다.</p>
+                <p style="margin: 10px 0; font-size: 16px; color: #333;">총점: 60</p>
+            </div>
+        
+            <!-- 오른쪽: 등급 기준 설명 -->
+            <div style="flex: 2; max-width: 700px; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); word-wrap: break-word; overflow-wrap: break-word; font-size: calc(1em + 0.2vw);">
+                <h3 style="font-size: 24px; color: #333;">등급 기준 설명</h3>
+                <ul style="list-style: none; padding: 0; font-size: 16px; line-height: 1.8; color: #333;">
+                    <li>[통합 등급 점수 구간: 총 108점/ 최하점 36점]</li>
+                    <li>S 등급: 77점 이상~ 84점 (최상위, 최고 수준): "훌륭한 환경 경영을 실천하고 있습니다! 현재의 노력을 유지하고, 지속 가능성의 모범 사례로 자리잡으세요."</li>
+                    <li>A+ 등급: 67점 ~ 76점 (우수한 수준): "환경 경영 수준이 매우 우수합니다. 작은 개선을 통해 최고 수준으로 도약할 가능성이 높습니다."</li>
+                    <li>A 등급: 57점 ~ 66점 (양호한 수준): "환경 경영이 양호한 상태입니다. 중장기적 계획을 세우고 한 단계 더 성장할 기회를 잡아보세요."</li>
+                    <li>B 등급: 43점 ~ 56점 (보통 수준): "환경 경영 수준이 보통입니다. 개선 방향을 설정하여 더 높은 성과를 기대해 보세요."</li>
+                    <li>C 등급: 28점 ~ 42점 (미흡한 수준): "환경 경영이 미흡한 수준입니다. 구체적인 목표 설정과 체계적인 실행 계획으로 발전이 필요합니다."</li>
+                </ul>
+                <p style="margin-top: 20px; font-size: 16px; line-height: 1.5; color: #4CAF50;"></p>
+            </div>
+        </div>
+
+        <div class="chart-container" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 40px;">
+            <!-- Scope 배출 분석 -->
+            <div style="flex: 1; text-align: center;">
+                <h3 style="font-size: 20px; color: #333;">Scope 배출 분석</h3>
+                <canvas id="scopeChart" width="250" height="250"></canvas> <!-- 그래프 크기 조정 -->
+            </div>
+        
+            <!-- 멘트 -->
+            <div style="flex: 1; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+                <p style="font-size: 16px; line-height: 1.5; color: #333;">
+                    귀사에서 배출되는 온실가스의 주요 배출 범주를 명확히 파악하고, 이를 기반으로 효과적인 감축 계획을 수립하시기 바랍니다.
+                </p>
+            </div>
+        </div>
+
+        <div class="container" style="max-width: 1200px; margin: 20px auto; padding: 30px; background: #fff; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); overflow-y: auto; max-height: 80vh;">
+           <!-- 응답 평가 및 개선 방안 -->
+    <div class="recommendations" style="margin-bottom: 40px;">
+        <h3 style="font-size: 24px; color: #333; margin-bottom: 20px;">응답 평가 및 개선 방안</h3>
+        <% if (lowScoreItems && lowScoreItems.length > 0) { %>
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <% lowScoreItems.forEach(item => { %>
+                <div style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+                    <h4 style="font-size: 20px; color: #4CAF50;"><%= item.category %> (총점: <%= item.totalScore %>점)</h4>
+                    <p style="font-size: 16px; line-height: 1.5;">
+                        * 귀사의 점수: <%= item.score %> 
+                        (<%= item.score >= item.missLevel[0] && item.score <= item.missLevel[1] ? "미흡" : 
+                            item.score >= item.partialLevel[0] && item.score <= item.partialLevel[1] ? "보통" : 
+                            "우수" %>)
+                    </p>
+                    <% if (item.score >= item.missLevel[0] && item.score <= item.missLevel[1]) { %>
+                        <h5 style="font-size: 18px; color: #ff5722;">미흡한 부분</h5>
+                        <ul style="list-style: none; padding-left: 0; font-size: 16px; line-height: 1.5; color: #333;">
+                            <% item.missDetails.forEach(detail => { %>
+                                <li>- <%= detail %></li>
+                            <% }) %>
+                        </ul>
+                        <p style="font-size: 16px; line-height: 1.5; margin-top: 10px;">
+                            해당 항목에서의 개선 방향 설정과 노력이 필요합니다.<br>
+                            <%= item.improvementSuggestion %>
+                        </p>
+                    <% } else { %>
+                        <p style="font-size: 16px; line-height: 1.5; color: #4CAF50;">
+                            해당 항목은 우수한 수준으로 관리되고 있습니다.<br>
+                            <%= item.successMessage %>
+                        </p>
+                    <% } %>
+                </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <p style="font-size: 16px; line-height: 1.5; color: #333;">미흡 항목이 없습니다. 모든 항목이 우수하거나 보통 수준으로 관리되고 있습니다.</p>
+        <% } %>
+    </div>
+
+    <!-- 기업 평가 모니터 -->
+<div class="monitor">
+    <h3 style="font-size: 24px; color: #333; margin-bottom: 20px;">기업 환경 이슈 모니터</h3>
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 16px;">
+            <thead>
+                <tr style="background: #f4f4f4; text-align: left;">
+                    <th style="padding: 10px; border-bottom: 2px solid #ddd;">귀사의 환경 이슈</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% 
+                const issues = results?.all || []; // 모든 이슈를 가져옴
+                for (let i = 0; i < issues.length; i++) {
+                %>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                        <a href="<%= issues[i].link %>" target="_blank" style="color: #333; text-decoration: none;">
+                            <%= issues[i].title %>
+                        </a>
+                    </td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+    <!-- 추가 문구 -->
+    <p style="font-size: 14px; line-height: 1.6; color: #666; margin-top: 10px; text-align: center;">
+        귀사의 환경 관련 이슈를 확인하고 환경 계획을 수립하세요.<br>
+        본 모니터는 키워드 기반 웹크롤링 기능이기 때문에 오류를 포함할 수 있습니다.
+    </p>
+</div>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('scopeChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Scope1', 'Scope2', 'Scope3'],
+                    datasets: [{
+                        label: 'Scope 배출량',
+                        data: [55, 20, 15],
+                        backgroundColor: ['#4caf50', '#ff9800', '#2196f3'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
